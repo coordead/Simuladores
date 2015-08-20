@@ -37,7 +37,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" class="active" data-toggle="dropdown" role="button" aria-expanded="false">Ir al simulador... <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="..//Simulator_01_Monopolio_y_Competencia/">Simulator 01 (Monopolio y Competencia)</a></li>
+                                <li><a href="../Simulator_01_Monopolio_y_Competencia/">Simulator 01 (Monopolio y Competencia)</a></li>
                                 <li><a href="../Simulator_02_Cartel_Monopolio_Competencia">Simulator 02 (Cartel, Monopolio, Competencia)</a></li>
                             </ul>
                         </li>
@@ -50,7 +50,7 @@
             <!-- Simulador 01:  SIMULADOR DE EQUILIBRIOS-->
             <div class="row">
                 <div class="col-md-7">
-                    <h2>Simulator 03 (Monopolio, Cartel y Cournot)</h2>
+                    <h2>Simulador 03 (Monopolio, Cartel y Cournot)</h2>
                     <p>Monopolio, Cartel y Cournot - Equilibrio en Duopolio</p>
                 </div>
                 <div class="col-md-5">
@@ -58,7 +58,7 @@
                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         Material de apoyo (parte B)
                     </button>-->
-                    
+
                     <button style="margin-right: 2px; float: right; margin-top: 20px;" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-doc-sim1">
                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         Material de apoyo
@@ -82,7 +82,7 @@
                             </tr>
                         </table>
                     </div>
-                    
+
                     <!-- Tabla de parametros -->
                     <div class="panel panel-default panel-parameters">
                         <div class="panel-heading">Parámetros</div>
@@ -110,18 +110,19 @@
                             </tr>
                         </table>
                     </div>
-                    
+
                     <!-- Mensaje cambiar variables de la tabla de parametros -->
                     <div class="panel panel-default panel-help">
                         <div class="panel-body">
-                          <span class="glyphicon glyphicon-arrow-up icon-help" aria-hidden="true"></span>
-                          Cambiar los valores de los parámetros de las celdas resaltadas en color verde a discreción.
+                            <span class="glyphicon glyphicon-arrow-up icon-help" aria-hidden="true"></span>
+                            Cambiar los valores de los parámetros de las celdas resaltadas en color verde a discreción.
                         </div>
-                      </div>
+                    </div>
                 </div>
 
                 <div class="col-md-8">
                     <div class="panel panel-default">
+                        <div class="panel-heading">Costos Constantes</div>
                         <table class="table" id="comp_mono_table_parameters">
                             <tr >
                                 <th class="heading-bg" style="width:5%;"></th>
@@ -155,7 +156,7 @@
                                 <td><input type="number" id="ele_p_courN" readonly></td>
                                 <td><input type="number" id="ele_p_comp" readonly></td>
                             </tr>
-                            <tr data-toggle="tooltip" data-placement="right" title="N">
+                            <tr data-toggle="tooltip" data-placement="right" title="Beneficios">
                                 <th class="heading-bg" >Beneficios</th>
                                 <td><input type="number" id="ele_N_mon" readonly></td>
                                 <td><input type="number" id="ele_N_cart" readonly></td>
@@ -165,53 +166,40 @@
                             </tr>
                         </table>
                     </div>
-                    
+
                     <div class="panel panel-default">
-                        <table class="table" id="comp_mono_table_parameters">
+                        <div class="panel-heading">Costos Crecientes</div>
+                        <table class="table" id="comp_mono_table_parameters_2">
                             <tr >
                                 <th class="heading-bg" style="width:5%;"></th>
                                 <th class="heading-bg">Competencia</th>
                                 <th class="heading-bg">Cartel</th>
-                                <th class="heading-bg">Multiplanta</th>
-                                <th class="heading-bg">Monopolio</th>
+                                <th class="heading-bg">Cournot</th>
                             </tr>
                             <tr data-toggle="tooltip" data-placement="right" title="Exedente del consumidor" >
-                                <th class="heading-bg" >EC</th>
-                                <td><input type="number" id="ele_EC_comp" readonly></td>
-                                <td><input type="number" id="ele_EC_cart" readonly></td>
-                                <td><input type="number" id="ele_EC_mult" readonly></td>
-                                <td><input type="number" id="ele_EC_mono" readonly></td>
+                                <th class="heading-bg" >Q</th>
+                                <td><input type="number" id="ele_QC_comp" readonly></td>
+                                <td><input type="number" id="ele_QC_cart" readonly></td>
+                                <td><input type="number" id="ele_QC_cour" readonly></td>
                             </tr>
                             <tr data-toggle="tooltip" data-placement="right" title="Exedente del productor">
-                                <th class="heading-bg" >EP</th>
-                                <td><input type="number" id="ele_EP_comp" readonly></td>
-                                <td><input type="number" id="ele_EP_cart" readonly></td>
-                                <td><input type="number" id="ele_EP_mult" readonly></td>
-                                <td><input type="number" id="ele_EP_mono" readonly></td>
+                                <th class="heading-bg" >q</th>
+                                <td><input type="number" id="ele_qC_comp" readonly></td>
+                                <td><input type="number" id="ele_qC_cart" readonly></td>
+                                <td><input type="number" id="ele_qC_cour" readonly></td>
                             </tr>
                             <tr data-toggle="tooltip" data-placement="right" title="Bienestar social">
-                                <th class="heading-bg" >BS</th>
-                                <td><input type="number" id="ele_BS_comp" readonly></td>
-                                <td><input type="number" id="ele_BS_cart" readonly></td>
-                                <td><input type="number" id="ele_BS_mult" readonly></td>
-                                <td><input type="number" id="ele_BS_mono" readonly></td>
+                                <th class="heading-bg" >p</th>
+                                <td><input type="number" id="ele_pC_comp" readonly></td>
+                                <td><input type="number" id="ele_pC_cart" readonly></td>
+                                <td><input type="number" id="ele_pC_cour" readonly></td>
                             </tr>
                             <tr data-toggle="tooltip" data-placement="right" title="Pérdida Irrecuperable de eficiencia">
-                                <th class="heading-bg" >PIE</th>
-                                <td><input type="number" id="ele_PIE_comp" readonly></td>
-                                <td><input type="number" id="ele_PIE_cart" readonly></td>
-                                <td><input type="number" id="ele_PIE_mult" readonly></td>
-                                <td><input type="number" id="ele_PIE_mono" readonly></td>
-                            </tr>
-                            <tfoot>
-                                <tr class="total">
-                                    <th class="heading-bg" >Total</th>
-                                    <td><input type="number" id="ele_total_comp" readonly></td>
-                                    <td><input type="number" id="ele_total_cart" readonly></td>
-                                    <td><input type="number" id="ele_total_mult" readonly></td>
-                                    <td><input type="number" id="ele_total_mono" readonly></td>
-                                </tr>
-                            </tfoot> 
+                                <th class="heading-bg" >Beneficios</th>
+                                <td><input type="number" id="ele_benC_comp" readonly></td>
+                                <td><input type="number" id="ele_benC_cart" readonly></td>
+                                <td><input type="number" id="ele_benC_cour" readonly></td>
+                            </tr> 
                         </table>
                     </div>
                 </div>
@@ -230,7 +218,7 @@
                     <div id="graph2"></div>
                 </div>
             </div>
-                
+
             <hr>
 
             <footer>
@@ -283,11 +271,17 @@
 
         <script src="js/vendor/jquery-1.11.2.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
+        <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+        </script>
         <script src="js/vendor/highcharts/highcharts.js"></script>
         <!-- <script src="js/highchart_theme.js"></script>-->
         <script src="js/vendor/highcharts/modules/exporting.js"></script>
         <script src="js/accounting.min.js"></script>
         <script src="js/main.js"></script>
         <script src="js/simulador.js"></script>
+        
     </body>
 </html>
