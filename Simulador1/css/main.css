@@ -1,0 +1,149 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+body{
+    font-weight: 300;
+    background: url(../img/bg.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  letter-spacing: 0px;
+}
+pre{
+    margin-bottom: 0;
+}
+input{
+    padding: 1px 6px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    width: 100%;
+    text-align: center;
+    letter-spacing: -1px;
+    
+}
+
+input.error{
+    border-color: #a94442;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    background: #FAA09E !important;
+}
+
+input.error:focus {
+    outline: 0;
+    border-color: #843534;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #ce8483;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #ce8483;
+}
+
+.heading-bg{
+    background-image: -webkit-linear-gradient(top,#f5f5f5 0,#e8e8e8 100%);
+    background-image: -o-linear-gradient(top,#f5f5f5 0,#e8e8e8 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#f5f5f5),to(#e8e8e8));
+    background-image: linear-gradient(to bottom,#f5f5f5 0,#e8e8e8 100%);
+    filter: none;
+    background-repeat: repeat-x;
+    text-align: center;
+}
+
+.navbar-header .title{
+    float: left;
+    color: #fff;
+    margin-top: 12px;
+    width: 140px;
+    font-size: 16px;
+    letter-spacing: -1px;
+}
+
+#navbar .nav{
+    margin-top: 15px;
+}
+#navbar .nav >li>a{
+    color: #fff;
+    font-size: 18px;
+}
+
+#navbar .nav >li>a,.nav .open>a, .nav .open>a:hover, .nav .open>a:focus{
+  background-color: #eee;
+  border-color: #000;
+  color: #333;
+}
+.panel-help{
+    margin-bottom: 37px;
+    text-align: justify;
+}
+
+.icon-help{
+    font-size: 36px;
+    float: left;
+    margin: 0 15px 10px 0;
+}
+
+#parameter_table tr th, #competition_table tr th, #monopoly_table tr th{
+    width: 45%;
+    text-align: center; 
+}
+
+#parameter_table input{
+    font-weight: bold;
+    background: #56FF35;
+    color: #15410C;
+    border: none;
+}
+
+#container_graph{
+    width:100%; height: 300px;
+    margin-top: 20px;
+}
+
+.container_img{
+    margin-top: 5px;
+}
+.container_img img{ max-width: 100%;}
+
+.navbar{
+    margin-bottom: 0;
+}
+.navbar-brand{
+    height: 80px;
+}
+
+.navbar-brand>img{
+    max-height: 100%;
+}
+
+.panel.panel-parameters, .panel-help{
+    background: #353535;
+    color: #fff;
+    filter: none;
+}
+.heading-bg,.panel-default>.panel-heading{
+    background-image: none;
+    background: #000;
+    color: #fff;
+    filter: none;
+}
+
+footer{
+    font-weight: bold;
+    letter-spacing: -1px;
+    font-size: 12px;
+    color: #676767;
+    width: 55%;
+    margin: auto;
+}
+footer img{
+    float: left;
+    margin-right: 17px;
+}
+footer p{
+}
