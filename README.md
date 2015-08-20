@@ -1,5 +1,11 @@
-# Simulador3
+# Simuladores
 
-Simulador de Equilibrios en Duopolio (Monopolio, Cartel y Cournot)
+Simuladores de Microeconomía.
 
-Esta obra está licenciada bajo la Licencia Creative Commons Atribución-NoComercial-SinDerivar 4.0 Internacional. Para ver una copia de esta licencia, visita http://creativecommons.org/licenses/by-nc-nd/4.0/.
+TODOS los derechos reservados.
+Diseñado por: Daniel Toro González, Phd
+Desarrollado e implementado por:
+- Ing. Erick Torres
+- Ing. [Santiago Mendoza](http://www.santiagomendoza.org)
+
+[Coordinación de Educación a Distancia de la Universidad Tecnológica de Bolívar](http://www.utbvirtual.edu.co).
