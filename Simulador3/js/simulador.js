@@ -34,6 +34,13 @@ var Controller = {
     updated_n: function(n){
         Model.n = parseFloat(n);
         Views.update_values();
+    },
+    initial_params: function(a,b,c,f,n){
+        Model.a = a;
+        Model.b = b;
+        Model.c = c;
+        Model.f = f;
+        Model.n = n;
     }
 };
 
@@ -43,9 +50,17 @@ var Views = {
     parameter_F: $("#parameter_F"),
     parameter_c: $("#parameter_c"),
     parameter_n: $("#parameter_n"),
-    QMonopolio: $("#ele_Q_comp"),
-    QCartel: $("#ele_Q_cart"),
-    QCournot: $("#ele_Q_mult"),
+    initial_params: function(a,b,f,c,n){
+        Controller.initial_params(a,b,c,f,n);
+        Views.parameter_a.val(a);
+        Views.parameter_b.val(b);
+        Views.parameter_c.val(c);
+        Views.parameter_F.val(f);
+        Views.parameter_n.val(n);
+        Views.update_values();
+    },
+    param_costos_constantes: $("#param_costos_constantes"),
+    param_costos_crecientes: $("#param_costos_crecientes"),
     parameters_changed: function(){
         Views.parameter_a.change(function(){
             Controller.updated_a(Views.parameter_a.val());
@@ -105,6 +120,14 @@ var Views = {
         $("#ele_benC_comp").val(formulascrec.bencompetencia(Model.a, Model.b, Model.c, Model.f));
         $("#ele_benC_cart").val(formulascrec.bencartel(Model.a, Model.b, Model.c, Model.f));
         $("#ele_benC_cour").val(formulascrec.bencournot(Model.a, Model.b, Model.c, Model.f));
+    },
+    param_buttons: function(){
+        Views.param_costos_constantes.on('click', function(){
+            Views.initial_params(150,0.5,12,0.5,14.57439666);
+        });
+        Views.param_costos_crecientes.on('click', function(){
+            Views.initial_params(500,1,50,0.5,14.57439666)
+        });
     }
 };
 
@@ -245,11 +268,8 @@ var formulascrec = {
 };
 
 function initialize(){
-    $("#parameter_a").val(Model.a);
-    $("#parameter_b").val(Model.b);
-    $("#parameter_F").val(Model.f);
-    $("#parameter_c").val(Model.c);
-    $("#parameter_n").val(Model.n);
+    Views.initial_params(500,1,50,0.5,14.57439666);
     Views.parameters_changed();
+    Views.param_buttons();
     Views.update_values();
 }
