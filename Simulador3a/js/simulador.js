@@ -30,11 +30,22 @@ var Controller = {
         Model.c = parseFloat(c);
         Views.update_values();
     },
-    initial_params: function(a,b,c,f){
+    update_params: function(a,b,f,c){
         Model.a = a;
         Model.b = b;
         Model.c = c;
         Model.f = f;
+    },
+    param_validate: function(a,b,f,c){
+        if(b<0 || b>1){
+            Views.parameter_b.addClass("error").tooltip({placement: 'right', title: 'Parámetro b debe estar entre 0 y 1', trigger: 'manual', }).tooltip('show');
+            return false;
+        }
+        if(c<0 || c>1){
+            Views.parameter_b.addClass("error").tooltip({placement: 'right', title: 'Parámetro c debe estar entre 0 y 1', trigger: 'manual', }).tooltip('show');
+            return false;
+        }
+        return true;
     }
 };
 
@@ -48,47 +59,60 @@ var Views = {
     pcomp: $('#ele_p_comp'),
     Qcart: $('#ele_Q_cart'),
     Qcour: $('#ele_Q_cour'),
-    Qcomp: $('#ele_Q_comp'),
-    initial_params: function(a,b,f,c){
-        Controller.initial_params(a,b,c,f);
-        Views.parameter_a.val(a);
-        Views.parameter_b.val(b);
-        Views.parameter_c.val(c);
-        Views.parameter_F.val(f);
-        Views.update_values();
+    Qcomp: $('#ele_Q_comp'), 
+   update_params: function(a,b,f,c){
+        a = parseFloat(a);
+        b = parseFloat(b);
+        f = parseFloat(f);
+        c = parseFloat(c);
+        
+        if(Controller.param_validate(a,b,f,c)){
+            Views.parameter_b.tooltip('toggle');
+            Views.parameter_b.removeClass('error');
+            Views.parameter_c.tooltip('toggle');
+            Views.parameter_c.removeClass('error');
+            Controller.update_params(a,b,f,c);
+            Views.parameter_a.val(a);
+            Views.parameter_b.val(b);
+            Views.parameter_c.val(c);
+            Views.parameter_F.val(f);
+            Views.update_values();
+        }else{
+            
+        }
     },
     param_costos_crecientes: $("#param_costos_crecientes"),
     parameters_changed: function(){
         Views.parameter_a.change(function(){
-            Controller.updated_a(Views.parameter_a.val());
+            Views.update_params(Views.parameter_a.val(),Views.parameter_b.val(),Views.parameter_F.val(),Views.parameter_c.val());
         });
         Views.parameter_b.change(function(){
-            Controller.updated_b(Views.parameter_b.val());
+            Views.update_params(Views.parameter_a.val(),Views.parameter_b.val(),Views.parameter_F.val(),Views.parameter_c.val());
         });
         Views.parameter_F.change(function(){
-            Controller.updated_F(Views.parameter_F.val());
+            Views.update_params(Views.parameter_a.val(),Views.parameter_b.val(),Views.parameter_F.val(),Views.parameter_c.val());
         });
         Views.parameter_c.change(function(){
-            Controller.updated_c(Views.parameter_c.val());
+            Views.update_params(Views.parameter_a.val(),Views.parameter_b.val(),Views.parameter_F.val(),Views.parameter_c.val());
         });
     },
     update_values: function(){       
         /* Costos Crecientes */
-        $("#ele_Q_comp").val(formulascrec.Qcompetencia(Model.a, Model.b, Model.c));
-        $("#ele_Q_cart").val(formulascrec.Qcartel(Model.a, Model.b, Model.c));
-        $("#ele_Q_cour").val(formulascrec.Qcournot(Model.a, Model.b, Model.c));
+        $("#ele_Q_comp").val(formulascrec.Qcompetencia(Model.a, Model.b, Model.c).toFixed(2));
+        $("#ele_Q_cart").val(formulascrec.Qcartel(Model.a, Model.b, Model.c).toFixed(2));
+        $("#ele_Q_cour").val(formulascrec.Qcournot(Model.a, Model.b, Model.c).toFixed(2));
         /*Siguiente fila */
         $("#ele_q_comp").val();
-        $("#ele_q_cart").val(formulascrec.qcartel(Model.a, Model.b, Model.c));
-        $("#ele_q_cour").val(formulascrec.qcournot(Model.a, Model.b, Model.c));
+        $("#ele_q_cart").val(formulascrec.qcartel(Model.a, Model.b, Model.c).toFixed(2));
+        $("#ele_q_cour").val(formulascrec.qcournot(Model.a, Model.b, Model.c).toFixed(2));
         /*Siguiente fila */
-        $("#ele_p_comp").val(formulascrec.pcompetencia(Model.a, Model.b, Model.c));
-        $("#ele_p_cart").val(formulascrec.pcartel(Model.a, Model.b, Model.c));
-        $("#ele_p_cour").val(formulascrec.pcournot(Model.a, Model.b, Model.c));
+        $("#ele_p_comp").val(formulascrec.pcompetencia(Model.a, Model.b, Model.c).toFixed(2));
+        $("#ele_p_cart").val(formulascrec.pcartel(Model.a, Model.b, Model.c).toFixed(2));
+        $("#ele_p_cour").val(formulascrec.pcournot(Model.a, Model.b, Model.c).toFixed(2));
         /*Siguiente fila */
-        $("#ele_ben_comp").val(formulascrec.bencompetencia(Model.a, Model.b, Model.c, Model.f));
-        $("#ele_ben_cart").val(formulascrec.bencartel(Model.a, Model.b, Model.c, Model.f));
-        $("#ele_ben_cour").val(formulascrec.bencournot(Model.a, Model.b, Model.c, Model.f));
+        $("#ele_ben_comp").val(formulascrec.bencompetencia(Model.a, Model.b, Model.c, Model.f).toFixed(2));
+        $("#ele_ben_cart").val(formulascrec.bencartel(Model.a, Model.b, Model.c, Model.f).toFixed(2));
+        $("#ele_ben_cour").val(formulascrec.bencournot(Model.a, Model.b, Model.c, Model.f).toFixed(2));
         
         build_graph([parseFloat(Views.pcomp.val()), parseFloat(Views.pcart.val()), parseFloat(Views.pcour.val())],[parseFloat(Views.Qcomp.val()), parseFloat(Views.Qcart.val()), parseFloat(Views.Qcour.val())] );
     }
@@ -145,7 +169,7 @@ var formulascrec = {
 };
 
 $(document).ready(function(){
-    Views.initial_params(150,0.5,12,0.5);
+    Views.update_params(150,0.5,12,0.5);
     Views.parameters_changed();
     Views.update_values();
 });
