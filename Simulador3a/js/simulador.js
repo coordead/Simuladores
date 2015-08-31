@@ -7,14 +7,10 @@
 //window.jQuery = $;
 
 var Model = {
-    a: 500,
-    b: 1,
-    f: 50,
-    c: 0.5,
-    n: 14.57439666,
-    qcompetencia: 0,
-    qcartel: 0,
-    qcournot: 0
+    a: 150,
+    b: 0.5,
+    f: 12,
+    c: 0.5
 };
 
 var Controller = {
@@ -34,16 +30,11 @@ var Controller = {
         Model.c = parseFloat(c);
         Views.update_values();
     },
-    updated_n: function(n){
-        Model.n = parseFloat(n);
-        Views.update_values();
-    },
-    initial_params: function(a,b,c,f,n){
+    initial_params: function(a,b,c,f){
         Model.a = a;
         Model.b = b;
         Model.c = c;
         Model.f = f;
-        Model.n = n;
     }
 };
 
@@ -52,17 +43,20 @@ var Views = {
     parameter_b: $("#parameter_b"),
     parameter_F: $("#parameter_F"),
     parameter_c: $("#parameter_c"),
-    parameter_n: $("#parameter_n"),
-    initial_params: function(a,b,f,c,n){
-        Controller.initial_params(a,b,c,f,n);
+    pcart: $('#ele_p_cart'),
+    pcour: $('#ele_p_cour'),
+    pcomp: $('#ele_p_comp'),
+    Qcart: $('#ele_Q_cart'),
+    Qcour: $('#ele_Q_cour'),
+    Qcomp: $('#ele_Q_comp'),
+    initial_params: function(a,b,f,c){
+        Controller.initial_params(a,b,c,f);
         Views.parameter_a.val(a);
         Views.parameter_b.val(b);
         Views.parameter_c.val(c);
         Views.parameter_F.val(f);
-        Views.parameter_n.val(n);
         Views.update_values();
     },
-    param_costos_constantes: $("#param_costos_constantes"),
     param_costos_crecientes: $("#param_costos_crecientes"),
     parameters_changed: function(){
         Views.parameter_a.change(function(){
@@ -77,27 +71,26 @@ var Views = {
         Views.parameter_c.change(function(){
             Controller.updated_c(Views.parameter_c.val());
         });
-        Views.parameter_n.change(function(){
-            Controller.updated_n(Views.parameter_n.val());
-        });
     },
     update_values: function(){       
         /* Costos Crecientes */
-        $("#ele_QC_comp").val(formulascrec.Qcompetencia(Model.a, Model.b, Model.c));
-        $("#ele_QC_cart").val(formulascrec.Qcartel(Model.a, Model.b, Model.c));
-        $("#ele_QC_cour").val(formulascrec.Qcournot(Model.a, Model.b, Model.c));
+        $("#ele_Q_comp").val(formulascrec.Qcompetencia(Model.a, Model.b, Model.c));
+        $("#ele_Q_cart").val(formulascrec.Qcartel(Model.a, Model.b, Model.c));
+        $("#ele_Q_cour").val(formulascrec.Qcournot(Model.a, Model.b, Model.c));
         /*Siguiente fila */
-        $("#ele_qC_comp").val();
-        $("#ele_qC_cart").val(formulascrec.qcartel(Model.a, Model.b, Model.c));
-        $("#ele_qC_cour").val(formulascrec.qcournot(Model.a, Model.b, Model.c));
+        $("#ele_q_comp").val();
+        $("#ele_q_cart").val(formulascrec.qcartel(Model.a, Model.b, Model.c));
+        $("#ele_q_cour").val(formulascrec.qcournot(Model.a, Model.b, Model.c));
         /*Siguiente fila */
-        $("#ele_pC_comp").val(formulascrec.pcompetencia(Model.a, Model.b, Model.c));
-        $("#ele_pC_cart").val(formulascrec.pcartel(Model.a, Model.b, Model.c));
-        $("#ele_pC_cour").val(formulascrec.pcournot(Model.a, Model.b, Model.c));
+        $("#ele_p_comp").val(formulascrec.pcompetencia(Model.a, Model.b, Model.c));
+        $("#ele_p_cart").val(formulascrec.pcartel(Model.a, Model.b, Model.c));
+        $("#ele_p_cour").val(formulascrec.pcournot(Model.a, Model.b, Model.c));
         /*Siguiente fila */
-        $("#ele_benC_comp").val(formulascrec.bencompetencia(Model.a, Model.b, Model.c, Model.f));
-        $("#ele_benC_cart").val(formulascrec.bencartel(Model.a, Model.b, Model.c, Model.f));
-        $("#ele_benC_cour").val(formulascrec.bencournot(Model.a, Model.b, Model.c, Model.f));
+        $("#ele_ben_comp").val(formulascrec.bencompetencia(Model.a, Model.b, Model.c, Model.f));
+        $("#ele_ben_cart").val(formulascrec.bencartel(Model.a, Model.b, Model.c, Model.f));
+        $("#ele_ben_cour").val(formulascrec.bencournot(Model.a, Model.b, Model.c, Model.f));
+        
+        build_graph([parseFloat(Views.pcomp.val()), parseFloat(Views.pcart.val()), parseFloat(Views.pcour.val())],[parseFloat(Views.Qcomp.val()), parseFloat(Views.Qcart.val()), parseFloat(Views.Qcour.val())] );
     }
 };
 
@@ -152,7 +145,7 @@ var formulascrec = {
 };
 
 $(document).ready(function(){
-    Views.initial_params(500,1,50,0.5,14.57439666);
+    Views.initial_params(150,0.5,12,0.5);
     Views.parameters_changed();
     Views.update_values();
 });
