@@ -6,11 +6,11 @@
 body{
     font-weight: 300;
     background: url(../img/bg.png) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  letter-spacing: 0px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    letter-spacing: 0px;
 }
 pre{
     margin-bottom: 0;
@@ -28,7 +28,7 @@ input{
     width: 100%;
     text-align: center;
     letter-spacing: -1px;
-    
+
 }
 
 input.error{
@@ -73,9 +73,9 @@ input.error:focus {
 }
 
 #navbar .nav >li>a,.nav .open>a, .nav .open>a:hover, .nav .open>a:focus{
-  background-color: #eee;
-  border-color: #000;
-  color: #333;
+    background-color: #eee;
+    border-color: #000;
+    color: #333;
 }
 
 .panel-help{
