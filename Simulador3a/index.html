@@ -87,8 +87,6 @@
                     <div class="panel panel-default panel-parameters">
                         <div class="panel-heading">
                             Parámetros
-                            <button id="param_costos_constantes" class="btn btn-primary btn-xs">Costos Constantes</button>
-                            <button id="param_costos_crecientes" class="btn btn-primary btn-xs">Costos Crecientes</button>
                         </div>
                         <!-- Table -->
                         <table class="table" id="parameter_table">
@@ -125,52 +123,6 @@
                 </div>
 
                 <div class="col-md-8">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Costos Constantes</div>
-                        <table class="table" id="comp_mono_table_parameters">
-                            <tr >
-                                <th class="heading-bg" style="width:5%;"></th>
-                                <th class="heading-bg">Monopolio</th>
-                                <th class="heading-bg">Cartel</th>
-                                <th class="heading-bg">Cournot</th>
-                                <th class="heading-bg">Cournot N Iguales</th>
-                                <th class="heading-bg">Competencia</th>
-                            </tr>
-                            <tr data-toggle="tooltip" data-placement="right" title="Producción">
-                                <th class="heading-bg" >Q</th>
-                                <td><input type="number" id="ele_Q_mon" readonly></td>
-                                <td><input type="number" id="ele_Q_cart" readonly></td>
-                                <td><input type="number" id="ele_Q_cour" readonly></td>
-                                <td><input type="number" id="ele_Q_courN" readonly></td>
-                                <td><input type="number" id="ele_Q_comp" readonly></td>
-                            </tr>
-                            <tr data-toggle="tooltip" data-placement="right" title="q" >
-                                <th class="heading-bg" >q</th>
-                                <td><input type="number" id="ele_q_mon" readonly></td>
-                                <td><input type="number" id="ele_q_cart" readonly></td>
-                                <td><input type="number" id="ele_q_cour" readonly></td>
-                                <td><input type="number" id="ele_q_courN" readonly></td>
-                                <td><input type="number" id="ele_q_comp" readonly></td>
-                            </tr>
-                            <tr data-toggle="tooltip" data-placement="right" title="Precios">
-                                <th class="heading-bg" >p</th>
-                                <td><input type="number" id="ele_p_mon" readonly></td>
-                                <td><input type="number" id="ele_p_cart" readonly></td>
-                                <td><input type="number" id="ele_p_cour" readonly></td>
-                                <td><input type="number" id="ele_p_courN" readonly></td>
-                                <td><input type="number" id="ele_p_comp" readonly></td>
-                            </tr>
-                            <tr data-toggle="tooltip" data-placement="right" title="Beneficios">
-                                <th class="heading-bg" >Beneficios</th>
-                                <td><input type="number" id="ele_N_mon" readonly></td>
-                                <td><input type="number" id="ele_N_cart" readonly></td>
-                                <td><input type="number" id="ele_N_cour" readonly></td>
-                                <td><input type="number" id="ele_N_courN" readonly></td>
-                                <td><input type="number" id="ele_N_comp" readonly></td>
-                            </tr>
-                        </table>
-                    </div>
-
                     <div class="panel panel-default">
                         <div class="panel-heading">Costos Crecientes</div>
                         <table class="table" id="comp_mono_table_parameters_2">

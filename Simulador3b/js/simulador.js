@@ -50,6 +50,16 @@ var Views = {
     parameter_F: $("#parameter_F"),
     parameter_c: $("#parameter_c"),
     parameter_n: $("#parameter_n"),
+    pmon: $('#ele_p_mon'),
+    pcart: $('#ele_p_cart'),
+    pcour: $('#ele_p_cour'),
+    pcourn: $('#ele_p_courN'),
+    pcomp: $('#ele_p_comp'),
+    Qmon: $('#ele_Q_mon'),
+    Qcart: $('#ele_Q_cart'),
+    Qcour: $('#ele_Q_cour'),
+    Qcourn: $('#ele_Q_courN'),
+    Qcomp: $('#ele_Q_comp'),
     initial_params: function(a,b,f,c,n){
         Controller.initial_params(a,b,c,f,n);
         Views.parameter_a.val(a);
@@ -60,7 +70,6 @@ var Views = {
         Views.update_values();
     },
     param_costos_constantes: $("#param_costos_constantes"),
-    param_costos_crecientes: $("#param_costos_crecientes"),
     parameters_changed: function(){
         Views.parameter_a.change(function(){
             Controller.updated_a(Views.parameter_a.val());
@@ -103,31 +112,8 @@ var Views = {
         $("#ele_N_cour").val(formulasconst.bencournot(Model.a, Model.b, Model.c, Model.f));
         $("#ele_N_courN").val(formulasconst.bencournotN(Model.a, Model.b, Model.c, Model.f, Model.n));
         $("#ele_N_comp").val(formulasconst.bencompetencia(Model.a, Model.b, Model.c, Model.f, Model.n));
-        
-        /* Costos Crecientes */
-        $("#ele_QC_comp").val(formulascrec.Qcompetencia(Model.a, Model.b, Model.c));
-        $("#ele_QC_cart").val(formulascrec.Qcartel(Model.a, Model.b, Model.c));
-        $("#ele_QC_cour").val(formulascrec.Qcournot(Model.a, Model.b, Model.c));
-        /*Siguiente fila */
-        $("#ele_qC_comp").val();
-        $("#ele_qC_cart").val(formulascrec.qcartel(Model.a, Model.b, Model.c));
-        $("#ele_qC_cour").val(formulascrec.qcournot(Model.a, Model.b, Model.c));
-        /*Siguiente fila */
-        $("#ele_pC_comp").val(formulascrec.pcompetencia(Model.a, Model.b, Model.c));
-        $("#ele_pC_cart").val(formulascrec.pcartel(Model.a, Model.b, Model.c));
-        $("#ele_pC_cour").val(formulascrec.pcournot(Model.a, Model.b, Model.c));
-        /*Siguiente fila */
-        $("#ele_benC_comp").val(formulascrec.bencompetencia(Model.a, Model.b, Model.c, Model.f));
-        $("#ele_benC_cart").val(formulascrec.bencartel(Model.a, Model.b, Model.c, Model.f));
-        $("#ele_benC_cour").val(formulascrec.bencournot(Model.a, Model.b, Model.c, Model.f));
-    },
-    param_buttons: function(){
-        Views.param_costos_constantes.on('click', function(){
-            Views.initial_params(150,0.5,12,0.5,14.57439666);
-        });
-        Views.param_costos_crecientes.on('click', function(){
-            Views.initial_params(500,1,50,0.5,14.57439666)
-        });
+
+        build_graph([parseFloat(Views.pmon.val()), parseFloat(Views.pcart.val()), parseFloat(Views.pcour.val()),parseFloat(Views.pcourn.val()), parseFloat(Views.pcomp.val())],[parseFloat(Views.Qmon.val()), parseFloat(Views.Qcart.val()), parseFloat(Views.Qcour.val()), parseFloat(Views.Qcourn.val()), parseFloat(Views.Qcomp.val())] );
     }
 };
 
@@ -217,59 +203,8 @@ var formulasconst = {
     }
 };
 
-var formulascrec = {
-    Qcompetencia: function(a,b,c){
-        var result = a/(2*c+2*b);
-        return result;
-    },
-    Qcartel: function(a,b,c){
-        var result = a/(2*b+c);
-        return result;
-    },
-    Qcournot: function(a,b,c){
-        var result = (2*a*b+4*a*c)/(3*Math.pow(b,2)+8*b*c+4*Math.pow(c,2));
-        return result;
-    },
-    qcartel: function(a,b,c){
-        var result = a/(4*b+2*c);
-        return result;
-    },
-    qcournot: function(a,b,c){
-        var result = (a*b+2*a*c)/(3*Math.pow(b,2)+8*b*c+4*Math.pow(c,2));
-        return result;
-    },
-    pcompetencia: function(a,b,c){
-        var result = (2*a*c+a*b)/(2*c+2*b);
-        return result;
-    },
-    pcartel: function(a,b,c){
-        var result = (a*b+a*c)/(2*b+c);
-        return result;
-    },
-    pcournot: function(a,b,c){
-        var result = (a*Math.pow(b,2)+4*a*b*c+4*a*Math.pow(c,2))/(3*Math.pow(b,2)+8*b*c+4*Math.pow(c,2));
-        return result;
-    },
-    bencompetencia: function(a,b,c,f){
-        var result = (Math.pow(a,2)/(4*(c+b)));
-        console.log(((c+b)));
-        result = result - f;
-        return result;
-    },
-    bencartel: function(a,b,c,f){
-        var result = (2*Math.pow(a,2)*b+Math.pow(a,2)*c)/(Math.pow((4*b+2*c),2))-f;
-        return result;
-    },
-    bencournot: function(a,b,c,f){
-        var result = (Math.pow(a,2)*Math.pow(b,3)+5*Math.pow(a,2)*Math.pow(b,2)*c+8*Math.pow(a,2)*b*Math.pow(c,2)+4*Math.pow(a,2)*Math.pow(c,3))/(Math.pow((3*Math.pow(b,2)+8*b*c+4*Math.pow(c,2)),2))-f;
-        return result;
-    }
-    
-};
-
 $(document).ready(function(){
     Views.initial_params(500,1,50,0.5,14.57439666);
     Views.parameters_changed();
-    Views.param_buttons();
     Views.update_values();
 });
