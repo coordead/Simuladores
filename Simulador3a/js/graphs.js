@@ -8,7 +8,7 @@ var graph = $('#graph1').highcharts({
     },
     xAxis: {
         categories: [
-            'Competencia',
+            'Monopolio',
             'Cartel',
             'Cournot'
         ],
@@ -49,7 +49,7 @@ var graph2 = $('#graph2').highcharts({
     },
     xAxis: {
         categories: [
-            'Competencia',
+            'Monopolio',
             'Cartel',
             'Cournot'
         ],
