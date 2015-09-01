@@ -15,37 +15,28 @@ var Model = {
 };
 
 var Controller = {
-    updated_a: function(a){
-        Model.a = parseFloat(a);
-        Views.update_values();
-    },
-    updated_b: function(b){
-        Model.b = parseFloat(b);
-        Views.update_values();
-    },
-    updated_F: function(f){
-        Model.f = parseFloat(f);
-        Views.update_values();
-    },
-    updated_c: function(c){
-        Model.c = parseFloat(c);
-        Views.update_values();
-    },
-    updated_n: function(n){
-        Model.n = parseFloat(n);
-        Views.update_values();
-    },
-    initial_params: function(a,b,c,f,n){
+    update_params: function (a, b, f, c, n) {
         Model.a = a;
         Model.b = b;
         Model.c = c;
         Model.f = f;
         Model.n = n;
+    },
+    param_validate: function (a, b, f, c, n) {
+        if (b < 0 || b > 1) {
+            Views.parameter_b.addClass("error").tooltip({placement: 'right', title: 'Parámetro b debe estar entre 0 y 1', trigger: 'manual', }).tooltip('show');
+            return false;
+        }
+        if (c < 0 || c > 1) {
+            Views.parameter_c.addClass("error").tooltip({placement: 'right', title: 'Parámetro c debe estar entre 0 y 1', trigger: 'manual', }).tooltip('show');
+            return false;
+        }
+        return true;
     }
 };
 
 var Views = {
-    parameter_a :$("#parameter_a"),
+    parameter_a: $("#parameter_a"),
     parameter_b: $("#parameter_b"),
     parameter_F: $("#parameter_F"),
     parameter_c: $("#parameter_c"),
@@ -60,34 +51,50 @@ var Views = {
     Qcour: $('#ele_Q_cour'),
     Qcourn: $('#ele_Q_courN'),
     Qcomp: $('#ele_Q_comp'),
-    initial_params: function(a,b,f,c,n){
-        Controller.initial_params(a,b,c,f,n);
-        Views.parameter_a.val(a);
-        Views.parameter_b.val(b);
-        Views.parameter_c.val(c);
-        Views.parameter_F.val(f);
-        Views.parameter_n.val(n);
-        Views.update_values();
+    update_params: function (a, b, f, c, n) {
+        a = parseFloat(a);
+        b = parseFloat(b);
+        f = parseFloat(f);
+        c = parseFloat(c);
+        n = parseFloat(n);
+
+        if (Controller.param_validate(a, b, f, c, n)) {
+            if (Views.parameter_b.data('bs.tooltip')) {
+                Views.parameter_b.tooltip('toggle');
+                Views.parameter_b.removeClass('error');
+                Views.parameter_c.tooltip('toggle');
+                Views.parameter_c.removeClass('error');
+            }
+            Controller.update_params(a, b, f, c, n);
+            Views.parameter_a.val(a);
+            Views.parameter_b.val(b);
+            Views.parameter_c.val(c);
+            Views.parameter_F.val(f);
+            Views.parameter_n.val(n);
+            Views.update_values();
+        } else {
+
+        }
     },
     param_costos_constantes: $("#param_costos_constantes"),
-    parameters_changed: function(){
-        Views.parameter_a.change(function(){
-            Controller.updated_a(Views.parameter_a.val());
+    parameters_changed: function () {
+        Views.parameter_a.change(function () {
+            Views.update_params(Views.parameter_a.val(), Views.parameter_b.val(), Views.parameter_F.val(), Views.parameter_c.val(), Views.parameter_n.val());
         });
-        Views.parameter_b.change(function(){
-            Controller.updated_b(Views.parameter_b.val());
+        Views.parameter_b.change(function () {
+            Views.update_params(Views.parameter_a.val(), Views.parameter_b.val(), Views.parameter_F.val(), Views.parameter_c.val(), Views.parameter_n.val());
         });
-        Views.parameter_F.change(function(){
-            Controller.updated_F(Views.parameter_F.val());
+        Views.parameter_F.change(function () {
+            Views.update_params(Views.parameter_a.val(), Views.parameter_b.val(), Views.parameter_F.val(), Views.parameter_c.val(), Views.parameter_n.val());
         });
-        Views.parameter_c.change(function(){
-            Controller.updated_c(Views.parameter_c.val());
+        Views.parameter_c.change(function () {
+            Views.update_params(Views.parameter_a.val(), Views.parameter_b.val(), Views.parameter_F.val(), Views.parameter_c.val(), Views.parameter_n.val());
         });
-        Views.parameter_n.change(function(){
-            Controller.updated_n(Views.parameter_n.val());
+        Views.parameter_n.change(function () {
+            Views.update_params(Views.parameter_a.val(), Views.parameter_b.val(), Views.parameter_F.val(), Views.parameter_c.val(), Views.parameter_n.val());
         });
     },
-    update_values: function(){
+    update_values: function () {
         /* Costos Constantes*/
         $("#ele_Q_mon").val(formulasconst.Qmonopolio(Model.a, Model.b, Model.c));
         $("#ele_Q_cart").val(formulasconst.Qcartel(Model.a, Model.b, Model.c));
@@ -113,98 +120,98 @@ var Views = {
         $("#ele_N_courN").val(formulasconst.bencournotN(Model.a, Model.b, Model.c, Model.f, Model.n));
         $("#ele_N_comp").val(formulasconst.bencompetencia(Model.a, Model.b, Model.c, Model.f, Model.n));
 
-        build_graph([parseFloat(Views.pmon.val()), parseFloat(Views.pcart.val()), parseFloat(Views.pcour.val()),parseFloat(Views.pcourn.val()), parseFloat(Views.pcomp.val())],[parseFloat(Views.Qmon.val()), parseFloat(Views.Qcart.val()), parseFloat(Views.Qcour.val()), parseFloat(Views.Qcourn.val()), parseFloat(Views.Qcomp.val())] );
+        build_graph([parseFloat(Views.pmon.val()), parseFloat(Views.pcart.val()), parseFloat(Views.pcour.val()), parseFloat(Views.pcourn.val()), parseFloat(Views.pcomp.val())], [parseFloat(Views.Qmon.val()), parseFloat(Views.Qcart.val()), parseFloat(Views.Qcour.val()), parseFloat(Views.Qcourn.val()), parseFloat(Views.Qcomp.val())]);
     }
 };
 
 var formulasconst = {
-    Qmonopolio: function(a,b,c){
-        var result = (a-c)/(2*b);
-        return Math.round(result*100)/100;
+    Qmonopolio: function (a, b, c) {
+        var result = (a - c) / (2 * b);
+        return Math.round(result * 100) / 100;
     },
-    Qcartel: function(a,b,c){
-        var result = formulasconst.Qmonopolio(a,b,c);
-        return Math.round(result*100)/100;
+    Qcartel: function (a, b, c) {
+        var result = formulasconst.Qmonopolio(a, b, c);
+        return Math.round(result * 100) / 100;
     },
-    Qcournot: function(a,b,c){
-        var result = (2.00*(a-c))/(3.00*b);
-        return Math.round(result*100)/100;
+    Qcournot: function (a, b, c) {
+        var result = (2.00 * (a - c)) / (3.00 * b);
+        return Math.round(result * 100) / 100;
     },
-    QcournotN: function(a,b,c,n){
-        var result = ((a-c)/b)*(n/(n+1));
-        return Math.round(result*100)/100;
+    QcournotN: function (a, b, c, n) {
+        var result = ((a - c) / b) * (n / (n + 1));
+        return Math.round(result * 100) / 100;
     },
-    Qcompetencia: function(a,b,c){
-        var result = (a-c)/b;
-        return Math.round(result*100)/100;
+    Qcompetencia: function (a, b, c) {
+        var result = (a - c) / b;
+        return Math.round(result * 100) / 100;
     },
-    qcartel: function(a,b,c){
-        var result = formulasconst.Qcartel(a,b,c)/2;
-        return Math.round(result*100)/100;
+    qcartel: function (a, b, c) {
+        var result = formulasconst.Qcartel(a, b, c) / 2;
+        return Math.round(result * 100) / 100;
     },
-    qcournot: function(a,b,c){
-        var result = (a-c)/(3*b);
-        return Math.round(result*100)/100;
+    qcournot: function (a, b, c) {
+        var result = (a - c) / (3 * b);
+        return Math.round(result * 100) / 100;
     },
-    qcournotN: function(a,b,c,n){
-        var result = (a-c)/((n+1)*b);
-        return Math.round(result*100)/100;
+    qcournotN: function (a, b, c, n) {
+        var result = (a - c) / ((n + 1) * b);
+        return Math.round(result * 100) / 100;
     },
-    qcompetencia: function(a,b,c,n){
-        var result = formulasconst.Qcompetencia(a,b,c)/n;
-        return Math.round(result*100)/100;
+    qcompetencia: function (a, b, c, n) {
+        var result = formulasconst.Qcompetencia(a, b, c) / n;
+        return Math.round(result * 100) / 100;
     },
-    pmonopolio: function(a,c){
-        var result = (a+c)/2;
-        return Math.round(result*100)/100;
+    pmonopolio: function (a, c) {
+        var result = (a + c) / 2;
+        return Math.round(result * 100) / 100;
     },
-    pcartel: function(a,c){
-        var result = formulasconst.pmonopolio(a,c);
-        return Math.round(result*100)/100;
+    pcartel: function (a, c) {
+        var result = formulasconst.pmonopolio(a, c);
+        return Math.round(result * 100) / 100;
     },
-    pcournot: function(a,c){
-        var result = (a+2*c)/3;
-        return Math.round(result*100)/100;
+    pcournot: function (a, c) {
+        var result = (a + 2 * c) / 3;
+        return Math.round(result * 100) / 100;
     },
-    pcournotN: function(a,c,n){
-        var result = (a+n*c)/(n+1);
-        return Math.round(result*100)/100;
+    pcournotN: function (a, c, n) {
+        var result = (a + n * c) / (n + 1);
+        return Math.round(result * 100) / 100;
     },
-    pcompetencia: function(c){
+    pcompetencia: function (c) {
         var result = c;
-        return Math.round(result*100)/100;
+        return Math.round(result * 100) / 100;
     },
-    benmonopolio: function(a,b,c,f){
-        var QMonopolio = formulasconst.Qmonopolio(a,b,c);
-        var result = b * Math.pow(QMonopolio,2) -f;
-        return Math.round(result*100)/100;
+    benmonopolio: function (a, b, c, f) {
+        var QMonopolio = formulasconst.Qmonopolio(a, b, c);
+        var result = b * Math.pow(QMonopolio, 2) - f;
+        return Math.round(result * 100) / 100;
     },
-    bencartel: function(a,b,c,f){
-        var qCartel = formulasconst.qcartel(a,b,c);
-        var result = 2*b*Math.pow(qCartel,2)-f;
-        return Math.round(result*100)/100;
+    bencartel: function (a, b, c, f) {
+        var qCartel = formulasconst.qcartel(a, b, c);
+        var result = 2 * b * Math.pow(qCartel, 2) - f;
+        return Math.round(result * 100) / 100;
     },
-    bencournot: function(a,b,c,f){
-        var qC = formulasconst.qcournot(a,b,c);
-        var result = b*Math.pow(qC,2)-f;
-        return Math.round(result*100)/100;
+    bencournot: function (a, b, c, f) {
+        var qC = formulasconst.qcournot(a, b, c);
+        var result = b * Math.pow(qC, 2) - f;
+        return Math.round(result * 100) / 100;
     },
-    bencournotN: function(a,b,c,f,n){
-        var PCN = formulasconst.pcournotN(a,c,n);
-        var QCN = formulasconst.qcournotN(a,b,c,n);
-        var result = PCN*QCN-(f+c*QCN);
-        return Math.round(result*100)/100;
+    bencournotN: function (a, b, c, f, n) {
+        var PCN = formulasconst.pcournotN(a, c, n);
+        var QCN = formulasconst.qcournotN(a, b, c, n);
+        var result = PCN * QCN - (f + c * QCN);
+        return Math.round(result * 100) / 100;
     },
-    bencompetencia: function(a,b,c,f,n){
+    bencompetencia: function (a, b, c, f, n) {
         var pCompetencia = formulasconst.pcompetencia(c);
-        var qCompetencia = formulasconst.qcompetencia(a,b,c,n);
-        var result = pCompetencia*qCompetencia-f-c*qCompetencia;
-        return Math.round(result*100)/100;
+        var qCompetencia = formulasconst.qcompetencia(a, b, c, n);
+        var result = pCompetencia * qCompetencia - f - c * qCompetencia;
+        return Math.round(result * 100) / 100;
     }
 };
 
-$(document).ready(function(){
-    Views.initial_params(500,1,50,0.5,14.57439666);
+$(document).ready(function () {
+    Views.update_params(500, 1, 50, 0.5, 14.57439666);
     Views.parameters_changed();
     Views.update_values();
 });
