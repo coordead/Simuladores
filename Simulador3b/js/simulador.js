@@ -60,11 +60,11 @@ var Views = {
 
         if (Controller.param_validate(a, b, f, c, n)) {
             if (Views.parameter_b.data('bs.tooltip')) {
-                Views.parameter_b.tooltip('toggle');
+                Views.parameter_b.tooltip('hide');
                 Views.parameter_b.removeClass('error');
             }
             if (Views.parameter_c.data('bs.tooltip')) {
-                Views.parameter_c.tooltip('toggle');
+                Views.parameter_c.tooltip('hide');
                 Views.parameter_c.removeClass('error');
             }
             Controller.update_params(a, b, f, c, n);
