@@ -1,0 +1,19 @@
+Costos Crecientes - Simulador 4
+
+Variables:
+
+a
+b
+F1
+F2
+C1
+C2
+
+
+
+Formulas:
+
+Q 	(2*a*b+2*a*C2+2*a*C1)/((2*b+2*C2)*(2*b+2*C1)-b^2)						Participación	q2reac+q1reac
+q2	(a*b+2*a*C2)/((2*b+2*C2)*(2*b+2*C1)-b^2)									q2/Q 		(a-b*q1)/(2*b+2*C1)
+q1	(a*b+2*a*C1)/((2*b+2*C2)*(2*b+2*C1)-b^2)									1-(q2/Q)	(a-b*q2)/(2*b+2*C2)
+p	(a*b^2+2*a*b*C1+2*a*b*C2+4*a*C1*C2)/((2*b+2*C2)*(2*b+2*C1)-b^2)							a-b*QReac
